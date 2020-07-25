@@ -25,10 +25,9 @@
 	pop es
 	pop dx
 
-	;mov si, wel2		; load message
-	;mov al, 0x01			; request sub-service 0x01
-	;int 0x21
 	call _welcome_message
+	call _help_menu
+
 	call _shell			; call the shell
     
 	int 0x19			; reboot
@@ -58,6 +57,8 @@ _shell:
 	_shell_begin:
 	;move to next line
 	call _display_endl
+
+
 
 	;display prompt
 	call _display_prompt
@@ -101,6 +102,7 @@ _shell:
 	mov si, strMinorVer
 	mov al, 0x01
 	int 0x21
+	call _display_endl
 	jmp _cmd_done
 	
 	; display hardware info
@@ -406,7 +408,7 @@ _welcome_message:
 	int 0x21
 
 	call _display_endl
-	mov si, wel3
+	mov si, wel1
 	mov al, 0x01
 	int 0x21
 
@@ -431,11 +433,41 @@ _welcome_message:
 	int 0x21
 
 	call _display_endl
-	mov si, wel8
+	mov si, wel1
 	mov al, 0x01
 	int 0x21
 	call _display_endl
 	ret
+
+_help_menu:
+	call _display_endl
+	mov si, h_heading
+	mov al, 0x01
+	int 0x21
+
+	call _display_endl
+	mov si, h_ver
+	mov al, 0x01
+	int 0x21
+
+	call _display_endl
+	mov si, h_info
+	mov al, 0x01
+	int 0x21
+
+	call _display_endl
+	mov si, h_help
+	mov al, 0x01
+	int 0x21
+
+	call _display_endl
+	mov si, h_exit
+	mov al, 0x01
+	int 0x21
+	call _display_endl
+	call _display_endl
+	ret
+
 
 _display_hardware_info:			; Procedure for printing Hardware info
 	
@@ -702,9 +734,7 @@ _save_string:
 
 	wel1 db	'*************************************************', 0x00			
 
-	wel2 db '************WELCOME TO JOSH-EXTENDED*************', 0x00 
-
-	wel3 db '*************************************************', 0x00
+	wel2 db '*********** WELCOME TO JOSH-EXTENDED ************', 0x00 
 
 	wel4 db ' Based on Josh', 0x00
 
@@ -714,7 +744,16 @@ _save_string:
 
 	wel7 db ' version 0.05 E.D.P.Chinthana SE/2017/004', 0x00
 
-	wel8 db '*************************************************', 0x00
+
+
+
+	h_heading db '********* Help Menu *********', 0x00
+
+	h_ver db ' ver - OS version', 0x00
+	h_info db ' info - Hardware infomation', 0x00
+	h_help db ' help - Help', 0x00
+	h_exit db ' exit - Exit', 0x00
+
 
 	strPrompt		db	"JOSH-Extended>>", 0x00
 	cmdMaxLen		db	255			;maximum length of commands
@@ -730,7 +769,7 @@ _save_string:
 	txtVersion		db	"version", 0x00	;messages and other strings
 	msgUnknownCmd		db	"Unknown command or bad file name!", 0x00
 	
-	strInfo			db	"||---------------------- Hardware Information ----------------------|| ", 0x00
+	strInfo			db	"********************* Hardware Information ********************", 0x00
 	strmemory		db	"Base Memory size: ", 0x00
 	strsmallextended	db	"Extended memory between(1M - 16M): ", 0x00
 	strbigextended		db      "Extended memory above 16M: ", 0x00
