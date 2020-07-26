@@ -111,10 +111,22 @@ _shell:
 	mov di, cmdInfo
 	mov cx, 5
 	repe	cmpsb
-	jne	_cmd_exit		;next command
+	jne	_cmd_help		;next command
 	
 	call _display_endl
 	call _display_hardware_info	;display Information
+	jmp _cmd_done
+
+	; display help menu
+	_cmd_help:		
+	mov si, strCmd0
+	mov di, cmdHelp
+	mov cx, 5
+	repe	cmpsb
+	jne	_cmd_exit		;next command
+	
+	call _display_endl
+	call _help_menu	;display help menu
 	jmp _cmd_done
 
 	; exit shell
@@ -765,6 +777,7 @@ _save_string:
 	cmdVer			db	"ver", 0x00		; internal commands
 	cmdExit			db	"exit", 0x00
 	cmdInfo			db	"info", 0x00		; Shows hardware information
+	cmdHelp         db  "help", 0x00     ; Shows help menu
 
 	txtVersion		db	"version", 0x00	;messages and other strings
 	msgUnknownCmd		db	"Unknown command or bad file name!", 0x00

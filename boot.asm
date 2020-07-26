@@ -185,8 +185,8 @@ jmp     START
           jnz     .SECTORLOOP                         ; attempt to read again
           int     0x18
      .SUCCESS
-          mov     si, msgProgress
-          call    DisplayMessage
+          ;mov     si, msgProgress
+          ;call    DisplayMessage
           pop     cx
           pop     bx
           pop     ax
@@ -235,7 +235,7 @@ jmp     START
      ImageName   db "KERNEL  BIN"
      msgLoading  db 0x0D, 0x0A, "Loading Boot Image ", 0x0D, 0x0A, 0x00
      msgCRLF     db 0x0D, 0x0A, 0x00
-     msgProgress db ".", 0x00
+     msgProgress db "", 0x00
      msgFailure  db 0x0D, 0x0A, "ERROR : Press Any Key to Reboot", 0x00
      
           TIMES 510-($-$$) DB 0
