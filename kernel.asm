@@ -123,10 +123,22 @@ _shell:
 	mov di, cmdHelp
 	mov cx, 5
 	repe	cmpsb
-	jne	_cmd_exit		;next command
+	jne	_cmd_clear		;next command
 	
 	call _display_endl
 	call _help_menu	;display help menu
+	jmp _cmd_done
+
+	; display help menu
+	_cmd_clear:		
+	mov si, strCmd0
+	mov di, cmdClear
+	mov cx, 5
+	repe	cmpsb
+	jne	_cmd_exit		;next command
+	
+	call _display_endl
+	call _clear	;display help menu
 	jmp _cmd_done
 
 	; exit shell
@@ -144,6 +156,7 @@ _shell:
 	mov si, msgUnknownCmd		;unknown command
 	mov al, 0x01
     int 0x21
+    call _display_endl
 
 	_cmd_done:
 
@@ -480,6 +493,14 @@ _help_menu:
 	call _display_endl
 	ret
 
+_clear:
+	MOV AH, 06h    ; Scroll up function
+	XOR AL, AL     ; Clear entire screen
+	XOR CX, CX     ; Upper left corner CH=row, CL=column
+	MOV DX, 184FH  ; lower right corner DH=row, DL=column 
+	MOV BH, 1Eh    ; YellowOnBlue
+	INT 10H
+	ret
 
 _display_hardware_info:			; Procedure for printing Hardware info
 	
@@ -761,7 +782,7 @@ _save_string:
 
 	h_heading db '********* Help Menu *********', 0x00
 
-	h_ver db ' ver - OS version', 0x00
+	h_ver db ' ver  - OS version', 0x00
 	h_info db ' info - Hardware infomation', 0x00
 	h_help db ' help - Help', 0x00
 	h_exit db ' exit - Exit', 0x00
@@ -776,11 +797,12 @@ _save_string:
 
 	cmdVer			db	"ver", 0x00		; internal commands
 	cmdExit			db	"exit", 0x00
-	cmdInfo			db	"info", 0x00		; Shows hardware information
+	cmdInfo			db	"info", 0x00	; Shows hardware information
 	cmdHelp         db  "help", 0x00     ; Shows help menu
+	cmdClear        db  "clr", 0x00    ; Shows help menu
 
 	txtVersion		db	"version", 0x00	;messages and other strings
-	msgUnknownCmd		db	"Unknown command or bad file name!", 0x00
+	msgUnknownCmd		db	"Unknown command!", 0x00
 	
 	strInfo			db	"********************* Hardware Information ********************", 0x00
 	strmemory		db	"Base Memory size: ", 0x00
