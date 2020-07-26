@@ -6,6 +6,9 @@ v0.05 -  E.D.P. Chinthana
   * Display hardware info
   * Help screen
   * Clear screen
+ 
+ Check my medium article:
+(https://medium.com/@edpchinthana/josh-extended-e14a19dcb9e0)
   
 <h3>Preview</h3>
 
