@@ -2,7 +2,11 @@
 Josh by Dr.Mohan Raj Dhanagopal<br>
 Boot loader - Ultimate Boot Loader - Matthew Vea<br><br>
 
-
+v0.05 -  E.D.P. Chinthana
+  * Display hardware info
+  * Help screen
+  * Clear screen
+  
 <h3>Preview</h3>
 
 Welcome Screen :
