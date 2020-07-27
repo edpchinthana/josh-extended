@@ -5,7 +5,7 @@ Boot loader - Ultimate Boot Loader - Matthew Vea<br><br>
 v0.05 -  E.D.P. Chinthana
   * Display hardware info
   * Help screen
-  * Clear screen
+  * Clear screen (🤕 font size get changed after this function)
  
  Check my medium article:
 (https://medium.com/@edpchinthana/josh-extended-e14a19dcb9e0)
