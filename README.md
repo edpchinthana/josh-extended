@@ -20,6 +20,6 @@ Help Screen :
 
 ![Help Screen](https://github.com/edpchinthana/josh-extended/blob/master/preview/image2.png)
 
-Clear screen :
+Clear screen : (🤕 font size get changed after this function)
 
 ![Clear Screen](https://github.com/edpchinthana/josh-extended/blob/master/preview/image3.png)
